@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA V Vehicle Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-bar, .add-vehicle-form {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>GTA V Vehicle Manager</h1>
+
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Search for vehicles..." oninput="searchVehicles()">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Vehicle Name</th>
+                <th>Garage</th>
+            </tr>
+        </thead>
+        <tbody id="vehicle-list"></tbody>
+    </table>
+
+    <div class="add-vehicle-form">
+        <h3>Add a New Vehicle</h3>
+        <input type="text" id="new-vehicle-name" placeholder="Vehicle Name">
+        <select id="new-vehicle-garage">
+            <option value="Tinsel Tower apt 45">Tinsel Tower apt 45</option>
+            <option value="Dell Perro 20">Dell Perro 20</option>
+            <option value="Exceptionalist Way">Exceptionalist Way</option>
+            <option value="Hawick Clubhouse">Hawick Clubhouse</option>
+            <option value="Office 1">Office 1</option>
+            <option value="Office 2">Office 2</option>
+            <option value="Office 3">Office 3</option>
+            <option value="Arena Workshop">Arena Workshop</option>
+            <option value="Arena B1">Arena B1</option>
+            <option value="Arena B2">Arena B2</option>
+            <option value="Casino Garage">Casino Garage</option>
+            <option value="Arcade">Arcade</option>
+            <option value="Agency">Agency</option>
+            <option value="Dell Perro 4">Dell Perro 4</option>
+            <option value="Dell Perro 7">Dell Perro 7</option>
+            <option value="Paleto Bay Facility">Paleto Bay Facility</option>
+            <option value="San Vitas St Apt 2">San Vitas St Apt 2</option>
+            <option value="Autoshop Tuner Cars">Autoshop Tuner Cars</option>
+            <option value="Eclips Blvd Garage B1">Eclips Blvd Garage B1</option>
+        </select>
+        <button onclick="addVehicle()">Add Vehicle</button>
+    </div>
+
+    <script>
+        const vehicles = [
+            { name: 'Veto Classic', garage: 'Tinsel Tower apt 45' },
+            { name: 'DR1', garage: 'Tinsel Tower apt 45' },
+            { name: 'Comet', garage: 'Tinsel Tower apt 45' },
+            { name: 'Rt3000', garage: 'Dell Perro 20' },
+            { name: 'Deluxo', garage: 'Dell Perro 20' },
+            { name: 'Club', garage: 'Exceptionalist Way' },
+            { name: 'Bati 801RR', garage: 'Hawick Clubhouse' },
+            { name: 'Entity XF', garage: 'Office 1' },
+            { name: 'Kuruma', garage: 'Office 2' },
+            { name: 'Vamos', garage: 'Office 3' },
+            { name: 'Slam FM', garage: 'Arena Workshop' },
+        ];
+
+        function displayVehicles(filteredVehicles = vehicles) {
+            const vehicleList = document.getElementById('vehicle-list');
+            vehicleList.innerHTML = filteredVehicles.map(
+                (vehicle) => `<tr><td>${vehicle.name}</td><td>${vehicle.garage}</td></tr>`
+            ).join('');
+        }
+
+        function searchVehicles() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filtered = vehicles.filter(vehicle => 
+                vehicle.name.toLowerCase().includes(query)
+            );
+            displayVehicles(filtered);
+        }
+
+        function addVehicle() {
+            const name = document.getElementById('new-vehicle-name').value.trim();
+            const garage = document.getElementById('new-vehicle-garage').value;
+
+            if (name) {
+                vehicles.push({ name, garage });
+                displayVehicles();
+                document.getElementById('new-vehicle-name').value = '';
+            } else {
+                alert('Please enter a vehicle name.');
+            }
+        }
+
+        // Initialize the table
+        displayVehicles();
+    </script>
+</body>
+</html>
